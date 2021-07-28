@@ -4,10 +4,16 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.openliberty.guides</groupId>
+
+    <parent>
+        <groupId>io.openliberty.guides</groupId>
+        <artifactId>guide-maven-multimodules</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>guide-maven-multimodules-ear</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>ear</packaging>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +24,7 @@
         <liberty.var.default.http.port>9080</liberty.var.default.http.port>
         <liberty.var.default.https.port>9443</liberty.var.default.https.port>
         <!-- Test Configuration -->
-        <!-- <skipTests>true</skipTests> -->
+        <!-- <skipTests>false</skipTests> -->
         <!-- <skipITs>true</skipITs> -->
         <!-- <skipUTs>true</skipUTs> -->
     </properties>
@@ -38,12 +44,12 @@
             <type>war</type>
         </dependency>
         <!-- For tests -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.6.2</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
     </dependencies>
 
     <build>
@@ -71,12 +77,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Enable liberty-maven plugin -->
-            <plugin>
-                <groupId>io.openliberty.tools</groupId>
-                <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.3.5-M2-SNAPSHOT</version>
-            </plugin>
+       
 
             <!-- Since the package type is ear,
             need to run testCompile to compile the tests -->
@@ -108,6 +109,15 @@
                         </default.https.port>
                         <cf.context.root>/converter</cf.context.root>
                     </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.openliberty.tools</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>3.4-SNAPSHOT</version>
+                <configuration>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>
